@@ -1,5 +1,6 @@
 <script lang="ts">
     type DisarmResult = {
+        id: string;
         backendName: string;
         format: string;
         originalSize: number;
@@ -52,6 +53,7 @@
             }
 
             const newResult: DisarmResult = {
+                id: crypto.randomUUID(),
                 backendName: backend.name,
                 format: data.format,
                 originalSize: data.originalSize,
@@ -89,7 +91,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-4">
                 {#each backends as backend (backend.id)}
                     <button 
-                        class="p-4 border-2 transition-all duration-300 transform hover:-translate-y-1 hover:bg-[#0a192f] hover:text-white {selectedBackend === backend.id ? 'border-[#0a192f] bg-[#0a192f] text-white' : 'border-[#0a192f] bg-transparent text-[#0a192f]'}"
+                        class="p-4 border-2 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:bg-[#0a192f] hover:text-white {selectedBackend === backend.id ? 'border-[#0a192f] bg-[#0a192f] text-white' : 'border-[#0a192f] bg-transparent text-[#0a192f]'}"
                         onclick={() => selectedBackend = backend.id}
                     >
                         <div class="font-bold">{backend.name}</div>
@@ -129,7 +131,7 @@
 
         {#if results.length > 0}
             <div class="space-y-8">
-                {#each results as res (res.backendName)}
+                {#each results as res (res.id)}
                 <div class="bg-[#0a192f] p-8 border-4 border-white transition-all duration-500 hover:-translate-y-2 relative overflow-hidden group">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
                     <h2 class="text-3xl font-bold mb-8 uppercase tracking-wider flex items-center text-white">
@@ -151,8 +153,14 @@
                             <div class="text-2xl font-bold text-green-400">{(res.finalSize / 1024).toFixed(2)} KB</div>
                         </div>
                         <div class="border-2 border-blue-500/50 p-4 transition-all duration-300 hover:border-blue-500 hover:bg-blue-500/10">
-                            <div class="text-sm text-blue-300 mb-1 uppercase tracking-wider font-bold">Removed Metadata</div>
-                            <div class="text-2xl font-bold text-blue-400">{(((res.originalSize - res.finalSize) / res.originalSize) * 100).toFixed(1)}%</div>
+                            <div class="text-sm text-blue-300 mb-1 uppercase tracking-wider font-bold">Size Difference</div>
+                            {#if res.finalSize <= res.originalSize}
+                                <div class="text-2xl font-bold text-blue-400">-{(((res.originalSize - res.finalSize) / res.originalSize) * 100).toFixed(1)}%</div>
+                                <div class="text-xs text-blue-300 mt-1">({res.originalSize - res.finalSize} bytes stripped)</div>
+                            {:else}
+                                <div class="text-2xl font-bold text-yellow-400">+{(((res.finalSize - res.originalSize) / res.originalSize) * 100).toFixed(1)}%</div>
+                                <div class="text-xs text-yellow-300 mt-1">(Safe re-encoding overhead)</div>
+                            {/if}
                         </div>
                     </div>
                     
@@ -162,7 +170,7 @@
                                 <div class="text-sm text-red-400 mb-4 font-bold uppercase tracking-wider flex items-center">
                                     Original Image (Suspicious)
                                 </div>
-                                <img src={res.originalImageSrc} alt="Original" class="max-w-full max-h-[400px] opacity-80 grayscale-[20%]" />
+                                <img src={res.originalImageSrc} alt="Original" class="max-w-full max-h-[400px] opacity-80 grayscale-20" />
                             </div>
                             <div class="border-2 border-green-500 p-4 flex flex-col items-center justify-center relative transition-all duration-300 hover:bg-green-500/5">
                                 <div class="text-sm text-green-400 mb-4 font-bold uppercase tracking-wider flex items-center">
