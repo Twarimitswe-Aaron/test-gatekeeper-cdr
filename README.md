@@ -9,7 +9,7 @@ cd frontend
 npm install
 npm run dev
 ```
-Navigate to `http://localhost:5173`.
+Navigate to `http://localhost:3000`.
 
 ---
 
@@ -70,6 +70,6 @@ python main.py
 ## Verification
 1. Start the **Frontend**.
 2. Start one or more **Backends**.
-3. Open `http://localhost:5173`.
+3. Open `http://localhost:3000`.
 4. Upload an image (e.g., JPEG, PNG, GIF) or document.
 5. Watch it seamlessly sanitize the payload via the native CDR engine!
