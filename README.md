@@ -2,8 +2,10 @@
 
 This repository contains a SvelteKit frontend and five backend implementations (Node.js, Go, Java, PHP, and Python) demonstrating how to integrate the **published** `gatekeeper-cdr` packages natively without requiring a Rust compiler.
 
+This testbed allows you to test the **Dual-Output ABI** introduced in v0.4.7, which simultaneously returns both the sanitized Native format (e.g., JPEG, GIF) and its Zero-Trust PNG counterpart.
+
 ## 1. Frontend (SvelteKit)
-The frontend provides a rich UI to upload suspicious files and send them to the selected backend.
+The frontend provides a rich UI to upload suspicious files, dispatch them to all 5 parallel backends simultaneously, and visualize the output sizes and dual-output formats.
 ```bash
 cd frontend
 npm install
@@ -34,6 +36,7 @@ go run main.go
 
 ## 4. Java Backend (Spring Boot) - Port 3003
 Uses a JNI wrapper. The `.so` binary is bundled inside the `.jar` and dynamically extracted/loaded at runtime by `NativeUtils`, requiring zero local configuration.
+*(Note: Java binding for dual-output is pending Maven Central update. Currently runs single-output).*
 ```bash
 cd backend-java
 ./mvnw spring-boot:run
@@ -72,4 +75,6 @@ python main.py
 2. Start one or more **Backends**.
 3. Open `http://localhost:3000`.
 4. Upload an image (e.g., JPEG, PNG, GIF) or document.
-5. Watch it seamlessly sanitize the payload via the native CDR engine!
+5. Watch the testbed automatically dispatch the payload and render the **Dual-Output results**:
+   - **Native Output**: Sanitized version preserving the original format.
+   - **Zero-Trust PNG**: Mathmatically clean, pixel-perfect PNG fallback.

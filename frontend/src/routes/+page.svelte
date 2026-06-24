@@ -63,7 +63,11 @@
                     originalSize: data.originalSize,
                     finalSize: data.finalSize,
                     imageSrc: data.disarmedFileBase64 ? `data:image/${(data.outputFormat || data.format).toLowerCase()};base64,${data.disarmedFileBase64}` : undefined,
-                    pngImageSrc: data.pngFileBase64 ? `data:image/png;base64,${data.pngFileBase64}` : undefined,
+                    pngImageSrc: data.pngFileBase64 
+                        ? `data:image/png;base64,${data.pngFileBase64}` 
+                        : (((data.outputFormat || data.format || '').toLowerCase() === 'png' && data.disarmedFileBase64) 
+                            ? `data:image/png;base64,${data.disarmedFileBase64}` 
+                            : undefined),
                 } as DisarmResult;
             });
 
@@ -229,7 +233,7 @@
                         </div>
                         
                         {#if res.imageSrc}
-                            <div class="p-4 bg-[#12121a] m-3 border border-[#22c55e]/20 grid {res.pngImageSrc ? 'grid-cols-2 gap-4' : 'grid-cols-1'}">
+                            <div class="p-4 bg-[#12121a] m-3 border border-[#22c55e]/20 grid grid-cols-2 gap-4">
                                 <div class="flex flex-col items-center">
                                     <div class="text-[#8888aa] text-[10px] tracking-[2px] mb-2 uppercase">NATIVE: {res.outputFormat}</div>
                                     <img src={res.imageSrc} alt="Native Sanitized by {res.backendName}" class="max-w-full max-h-[500px] object-contain" />
@@ -238,6 +242,11 @@
                                     <div class="flex flex-col items-center border-l border-[#1f2937] pl-4">
                                         <div class="text-[#818cf8] text-[10px] tracking-[2px] mb-2 uppercase">ZERO-TRUST: PNG</div>
                                         <img src={res.pngImageSrc} alt="Lossless PNG by {res.backendName}" class="max-w-full max-h-[500px] object-contain" />
+                                    </div>
+                                {:else}
+                                    <div class="flex flex-col items-center justify-center border-l border-[#1f2937] pl-4">
+                                        <div class="text-[#ef4444] text-[10px] tracking-[2px] mb-2 uppercase">PNG UNAVAILABLE</div>
+                                        <div class="text-[#8888aa] text-xs font-mono text-center px-4">Backend did not return a zero-trust PNG version for this format.</div>
                                     </div>
                                 {/if}
                             </div>
