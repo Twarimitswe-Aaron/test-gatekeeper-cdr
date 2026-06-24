@@ -29,19 +29,29 @@ if ($_SERVER['REQUEST_URI'] === '/disarm') {
     $rawBuffer = file_get_contents($_FILES['file']['tmp_name']);
 
     try {
-        $format = GatekeeperCdr::sniffFormat($rawBuffer);
-        $cleanBuffer = GatekeeperCdr::disarm($rawBuffer);
+        $result = GatekeeperCdr::disarm($rawBuffer);
+        
+        $cleanBuffer = $result['buffer'];
+        $pngBuffer = $result['png_buffer'];
+        $outputFormat = $result['output_format'];
 
-        error_log(sprintf("[PHP] Disarmed file | Format: %s | Original: %d bytes | Clean: %d bytes", $format, strlen($rawBuffer), strlen($cleanBuffer)));
-
-        header('Content-Type: application/json');
-        echo json_encode([
+        $formatDetected = GatekeeperCdr::sniffFormat($rawBuffer);
+        
+        $response = [
             "success" => true,
             "originalSize" => strlen($rawBuffer),
             "finalSize" => strlen($cleanBuffer),
-            "format" => $format,
+            "format" => $formatDetected,
+            "outputFormat" => $outputFormat,
             "disarmedFileBase64" => base64_encode($cleanBuffer)
-        ]);
+        ];
+
+        if ($pngBuffer !== null) {
+            $response["pngFileBase64"] = base64_encode($pngBuffer);
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
     } catch (Throwable $e) {
         http_response_code(500);
         echo json_encode(["error" => "PHP Backend Error: " . $e->getMessage()]);

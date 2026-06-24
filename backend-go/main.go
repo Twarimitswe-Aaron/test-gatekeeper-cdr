@@ -47,27 +47,31 @@ func disarmHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Gatekeeper CDR native binding
-	format, err := gatekeeper.SniffFormat(rawBuffer)
+	formatDetected, err := gatekeeper.SniffFormat(rawBuffer)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Gatekeeper format error: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	cleanBuffer, err := gatekeeper.Disarm(rawBuffer)
+	result, err := gatekeeper.Disarm(rawBuffer)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Gatekeeper disarm failed: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	log.Printf("[Go] Disarmed file | Format: %s | Original: %d bytes | Clean: %d bytes\n", format, len(rawBuffer), len(cleanBuffer))
+	log.Printf("[Go] Disarmed file | Format: %s | Original: %d bytes | Native: %d bytes\n", formatDetected, len(rawBuffer), len(result.Buffer))
 
-	// Prepare JSON response
 	response := map[string]interface{}{
 		"success":            true,
 		"originalSize":       len(rawBuffer),
-		"finalSize":          len(cleanBuffer),
-		"format":             format,
-		"disarmedFileBase64": base64.StdEncoding.EncodeToString(cleanBuffer),
+		"finalSize":          len(result.Buffer),
+		"format":             formatDetected,
+		"outputFormat":       result.OutputFormat,
+		"disarmedFileBase64": base64.StdEncoding.EncodeToString(result.Buffer),
+	}
+
+	if len(result.PngBuffer) > 0 {
+		response["pngFileBase64"] = base64.StdEncoding.EncodeToString(result.PngBuffer)
 	}
 
 	w.Header().Set("Content-Type", "application/json")

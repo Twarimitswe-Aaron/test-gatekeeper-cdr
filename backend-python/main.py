@@ -21,17 +21,23 @@ async def disarm(file: UploadFile = File(...)):
     
     try:
         format_detected = gatekeeper_cdr.sniff_format(raw_buffer)
-        clean_buffer = gatekeeper_cdr.disarm(raw_buffer)
+        result = gatekeeper_cdr.disarm(raw_buffer)
         
-        print(f"[Python] Disarmed file | Format: {format_detected} | Original: {len(raw_buffer)} bytes | Clean: {len(clean_buffer)} bytes")
+        print(f"[Python] Disarmed file | Format: {result.detected_format} | Original: {result.original_size_bytes} bytes | Native: {result.final_size_bytes} bytes")
         
-        return {
+        response = {
             "success": True,
-            "originalSize": len(raw_buffer),
-            "finalSize": len(clean_buffer),
-            "format": format_detected,
-            "disarmedFileBase64": base64.b64encode(clean_buffer).decode('utf-8')
+            "originalSize": result.original_size_bytes,
+            "finalSize": result.final_size_bytes,
+            "format": result.detected_format,
+            "outputFormat": result.output_format,
+            "disarmedFileBase64": base64.b64encode(result.buffer).decode('utf-8')
         }
+
+        if result.png_buffer is not None:
+            response["pngFileBase64"] = base64.b64encode(result.png_buffer).decode('utf-8')
+
+        return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

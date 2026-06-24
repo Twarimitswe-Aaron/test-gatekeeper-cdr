@@ -20,17 +20,20 @@ app.post('/disarm', upload.single('file'), (req, res) => {
         // Call the gatekeeper native binding
         const result = disarm(rawBuffer);
         
-        console.log(`[Node.js] Disarmed file | Format: ${result.detectedFormat} | Original: ${result.originalSizeBytes} bytes | Clean: ${result.finalSizeBytes} bytes`);
-        
-        // Return JSON with stats + base64 disarmed file (or send as binary)
-        // For easiest frontend integration, let's send JSON with base64
-        res.json({
+        const responsePayload = {
             success: true,
             originalSize: result.originalSizeBytes,
             finalSize: result.finalSizeBytes,
             format: result.detectedFormat,
+            outputFormat: result.outputFormat,
             disarmedFileBase64: result.buffer.toString('base64')
-        });
+        };
+
+        if (result.pngBuffer) {
+            responsePayload.pngFileBase64 = result.pngBuffer.toString('base64');
+        }
+
+        res.json(responsePayload);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
