@@ -1,0 +1,10 @@
+[Wed Jun 24 22:17:23 2026] PHP 8.4.20 Development Server (http://localhost:3006) started
+[Wed Jun 24 22:17:25 2026] [::1]:33666 Accepted
+[Wed Jun 24 22:17:25 2026] PHP Fatal error:  Uncaught FFI\Exception: FFI API is restricted by "ffi.enable" configuration directive in /media/newvolume/Documents/Notes/Rust/gatekeeper/src/GatekeeperCdr.php:45
+Stack trace:
+#0 /media/newvolume/Documents/Notes/Rust/gatekeeper/src/GatekeeperCdr.php(45): FFI::cdef()
+#1 /media/newvolume/Documents/Notes/Rust/gatekeeper/src/GatekeeperCdr.php(56): Gatekeeper\GatekeeperCdr::init()
+#2 /media/newvolume/Documents/Notes/Rust/test-gatekeeper-cdr/backend-php/index.php(32): Gatekeeper\GatekeeperCdr::sniffFormat()
+#3 {main}
+  thrown in /media/newvolume/Documents/Notes/Rust/gatekeeper/src/GatekeeperCdr.php on line 45
+[Wed Jun 24 22:17:25 2026] [::1]:33666 Closing

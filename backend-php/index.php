@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_URI'] === '/disarm') {
             "format" => $format,
             "disarmedFileBase64" => base64_encode($cleanBuffer)
         ]);
-    } catch (Exception $e) {
+    } catch (Throwable $e) {
         http_response_code(500);
-        echo json_encode(["error" => $e->getMessage()]);
+        echo json_encode(["error" => "PHP Backend Error: " . $e->getMessage()]);
     }
 }
