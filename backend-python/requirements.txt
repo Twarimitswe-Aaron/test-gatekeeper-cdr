@@ -1,4 +1,4 @@
 fastapi
 uvicorn
 python-multipart
-gatekeeper-cdr==0.4.4
+gatekeeper-cdr==0.4.6
