@@ -14,3 +14,23 @@ INFO:     127.0.0.1:41064 - "POST /disarm HTTP/1.1" 200 OK
 INFO:     127.0.0.1:41866 - "POST /disarm HTTP/1.1" 200 OK
 [Python] Disarmed file | Format: Png | Original: 57754 bytes | Clean: 63748 bytes
 INFO:     127.0.0.1:34752 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 87653 bytes | Clean: 89013 bytes
+INFO:     127.0.0.1:60598 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 87653 bytes | Clean: 89013 bytes
+INFO:     127.0.0.1:53044 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Jpeg | Original: 162 bytes | Clean: 77 bytes
+INFO:     127.0.0.1:49532 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 87653 bytes | Clean: 89013 bytes
+INFO:     127.0.0.1:44280 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 127704 bytes | Clean: 128793 bytes
+INFO:     127.0.0.1:44014 - "POST /disarm HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55294 - "POST /disarm HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:60336 - "POST /disarm HTTP/1.1" 500 Internal Server Error
+[Python] Disarmed file | Format: Png | Original: 75 bytes | Clean: 74 bytes
+INFO:     127.0.0.1:50870 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 75 bytes | Clean: 74 bytes
+INFO:     127.0.0.1:60886 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Jpeg | Original: 162 bytes | Clean: 77 bytes
+INFO:     127.0.0.1:60902 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 75 bytes | Clean: 74 bytes
+INFO:     127.0.0.1:57176 - "POST /disarm HTTP/1.1" 200 OK

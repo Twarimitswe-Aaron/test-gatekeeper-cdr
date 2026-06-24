@@ -7,7 +7,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../gatekeeper",
-                "reference": "bfb7d6d673749736384b230037463e27a6e4272d"
+                "reference": "1abda705d832831bbb8669f43d063e9e58304b45"
             },
             "require": {
                 "ext-ffi": "*",

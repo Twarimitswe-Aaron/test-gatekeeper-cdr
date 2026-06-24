@@ -4,3 +4,41 @@
 [Wed Jun 24 23:07:26 2026] 127.0.0.1:33080 Accepted
 [Wed Jun 24 23:07:26 2026] [PHP] Disarmed file | Format: Png | Original: 57754 bytes | Clean: 76096 bytes
 [Wed Jun 24 23:07:26 2026] 127.0.0.1:33080 Closing
+[Thu Jun 25 01:22:01 2026] 127.0.0.1:54250 Accepted
+[Thu Jun 25 01:22:01 2026] 127.0.0.1:54250 Closing
+[Thu Jun 25 01:25:47 2026] 127.0.0.1:34300 Accepted
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+[Thu Jun 25 01:25:47 2026] PHP Fatal error:  Out of memory (allocated 2097152 bytes) (tried to allocate 139964994430592 bytes) in /media/newvolume/Documents/Notes/Rust/gatekeeper/src/GatekeeperCdr.php on line 109
+[Thu Jun 25 01:25:47 2026] 127.0.0.1:34300 Closing
+[Thu Jun 25 01:26:07 2026] 127.0.0.1:51070 Accepted
+[Thu Jun 25 01:26:07 2026] 127.0.0.1:51070 Closing
+[Thu Jun 25 01:26:16 2026] 127.0.0.1:57844 Accepted
+
+mmap() failed: [12] Cannot allocate memory
+
+mmap() failed: [12] Cannot allocate memory
+[Thu Jun 25 01:26:16 2026] PHP Fatal error:  Out of memory (allocated 2097152 bytes) (tried to allocate 139964994429920 bytes) in /media/newvolume/Documents/Notes/Rust/gatekeeper/src/GatekeeperCdr.php on line 109
+[Thu Jun 25 01:26:16 2026] 127.0.0.1:57844 Closing
+[Thu Jun 25 01:28:26 2026] 127.0.0.1:58282 Accepted
+[Thu Jun 25 01:28:26 2026] 127.0.0.1:58282 Closing
+[Thu Jun 25 01:28:41 2026] 127.0.0.1:59286 Accepted
+[Thu Jun 25 01:28:42 2026] 127.0.0.1:59286 Closing
+[Thu Jun 25 01:29:36 2026] 127.0.0.1:47578 Accepted
+[Thu Jun 25 01:29:36 2026] 127.0.0.1:47578 Closing
+[Thu Jun 25 01:36:42 2026] 127.0.0.1:52416 Accepted
+[Thu Jun 25 01:36:42 2026] 127.0.0.1:52416 Closing
+[Thu Jun 25 01:36:54 2026] 127.0.0.1:35258 Accepted
+[Thu Jun 25 01:36:54 2026] 127.0.0.1:35258 Closing
+[Thu Jun 25 01:37:22 2026] 127.0.0.1:57506 Accepted
+[Thu Jun 25 01:37:22 2026] 127.0.0.1:57506 Closing
+[Thu Jun 25 01:37:27 2026] 127.0.0.1:55596 Accepted
+[Thu Jun 25 01:37:27 2026] 127.0.0.1:55596 Closing
+[Thu Jun 25 01:38:08 2026] 127.0.0.1:49016 Accepted
+[Thu Jun 25 01:38:08 2026] 127.0.0.1:49016 Closing
+[Thu Jun 25 01:38:14 2026] 127.0.0.1:49020 Accepted
+[Thu Jun 25 01:38:14 2026] 127.0.0.1:49020 Closing
+[Thu Jun 25 01:40:44 2026] 127.0.0.1:46104 Accepted
+[Thu Jun 25 01:40:44 2026] 127.0.0.1:46104 Closing

@@ -4,27 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea1272efc138beb21d66ff30cd966b92",
+    "content-hash": "c1eb6d0f5935401fe87d21f4899f12fa",
     "packages": [
         {
             "name": "twarimitswe-aaron/gatekeeper-cdr",
             "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Twarimitswe-Aaron/gatekeeper-cdr.git",
-                "reference": "80108d249a84b08c833437b874ff2a5cd1c9efa8"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Twarimitswe-Aaron/gatekeeper-cdr/zipball/80108d249a84b08c833437b874ff2a5cd1c9efa8",
-                "reference": "80108d249a84b08c833437b874ff2a5cd1c9efa8",
-                "shasum": ""
+                "type": "path",
+                "url": "../../gatekeeper",
+                "reference": "1abda705d832831bbb8669f43d063e9e58304b45"
             },
             "require": {
                 "ext-ffi": "*",
                 "php": ">=8.1"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "gatekeeper": {
@@ -36,7 +29,6 @@
                     "Gatekeeper\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "AGPL-3.0-only"
             ],
@@ -56,11 +48,9 @@
                 "security",
                 "zero-copy"
             ],
-            "support": {
-                "issues": "https://github.com/Twarimitswe-Aaron/gatekeeper-cdr/issues",
-                "source": "https://github.com/Twarimitswe-Aaron/gatekeeper-cdr/tree/main"
-            },
-            "time": "2026-06-24T16:16:00+00:00"
+            "transport-options": {
+                "relative": true
+            }
         }
     ],
     "packages-dev": [],
