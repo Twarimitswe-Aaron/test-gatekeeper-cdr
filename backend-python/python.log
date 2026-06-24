@@ -34,3 +34,11 @@ INFO:     127.0.0.1:60886 - "POST /disarm HTTP/1.1" 200 OK
 INFO:     127.0.0.1:60902 - "POST /disarm HTTP/1.1" 200 OK
 [Python] Disarmed file | Format: Png | Original: 75 bytes | Clean: 74 bytes
 INFO:     127.0.0.1:57176 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 127704 bytes | Clean: 128793 bytes
+INFO:     127.0.0.1:55474 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 127704 bytes | Clean: 128793 bytes
+INFO:     127.0.0.1:49394 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 127704 bytes | Clean: 128793 bytes
+INFO:     127.0.0.1:59596 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 127704 bytes | Clean: 128793 bytes
+INFO:     127.0.0.1:37402 - "POST /disarm HTTP/1.1" 200 OK

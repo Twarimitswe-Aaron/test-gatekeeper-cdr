@@ -20,7 +20,8 @@
     const backends = [
         { id: 'node', name: 'Node.js (Express)', port: 3001 },
         { id: 'go', name: 'Go', port: 3002 },
-        { id: 'java', name: 'Java (Spring Boot)', port: 3003 },
+        // Java (Spring Boot) — disabled: pending Maven Central publish
+        // { id: 'java', name: 'Java (Spring Boot)', port: 3003 },
         { id: 'php', name: 'PHP', port: 3004 },
         { id: 'python', name: 'Python (FastAPI)', port: 3005 }
     ];
