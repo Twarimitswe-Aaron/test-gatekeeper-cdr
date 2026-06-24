@@ -6,3 +6,11 @@ INFO:     Uvicorn running on http://127.0.0.1:3005 (Press CTRL+C to quit)
 INFO:     127.0.0.1:53912 - "POST /disarm HTTP/1.1" 200 OK
 [Python] Disarmed file | Format: Png | Original: 278794 bytes | Clean: 295848 bytes
 INFO:     127.0.0.1:44488 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 278794 bytes | Clean: 295848 bytes
+INFO:     127.0.0.1:47862 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 41014 bytes | Clean: 42280 bytes
+INFO:     127.0.0.1:41064 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 127704 bytes | Clean: 128793 bytes
+INFO:     127.0.0.1:41866 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 57754 bytes | Clean: 63748 bytes
+INFO:     127.0.0.1:34752 - "POST /disarm HTTP/1.1" 200 OK
