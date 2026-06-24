@@ -1,0 +1,8 @@
+INFO:     Started server process [279066]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:3005 (Press CTRL+C to quit)
+[Python] Disarmed file | Format: Png | Original: 278794 bytes | Clean: 295848 bytes
+INFO:     127.0.0.1:53912 - "POST /disarm HTTP/1.1" 200 OK
+[Python] Disarmed file | Format: Png | Original: 278794 bytes | Clean: 295848 bytes
+INFO:     127.0.0.1:44488 - "POST /disarm HTTP/1.1" 200 OK

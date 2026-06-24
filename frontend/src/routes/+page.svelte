@@ -93,91 +93,140 @@
     }
 </script>
 
-<div class="min-h-screen bg-[#0a192f] text-white p-8 font-sans">
-    <div class="max-w-7xl mx-auto space-y-8">
-        <header class="text-center space-y-4">
-            <h1 class="text-5xl font-extrabold tracking-tight text-white transition-all duration-500 hover:scale-[1.02]">
-                Gatekeeper CDR Testbed
-            </h1>
-            <p class="text-blue-200 text-lg">Multi-Language Zero-Trust File Sanitization Engine</p>
-        </header>
+<div class="min-h-screen bg-[#181a1b] text-[#e8e6e3] p-4 md:p-8 font-sans flex flex-col items-center">
+    <div class="w-full max-w-5xl space-y-6">
+        
+        <!-- HEADER -->
+        <div class="flex flex-col items-center mb-8 mt-4">
+            <div class="text-center text-4xl md:text-5xl font-black tracking-widest" style="font-family: 'Orbitron', sans-serif;">
+                <span class="text-white">GATEKEEPER</span><span class="text-[#818cf8]">.CDR</span>
+            </div>
+            <div class="text-[#aaa297] text-xs md:text-sm mt-3 tracking-[2px] uppercase">
+                Secure · Multi-Platform · Zero-Trust
+            </div>
+            <p class="text-[#8888aa] text-center max-w-2xl mt-4 text-sm leading-relaxed">
+                Gatekeeper is a high-performance Content Disarm and Reconstruction engine. It neutralizes steganography, exploits, and hidden payloads by stripping all metadata and completely rebuilding uploaded files from raw pixel/byte streams across 5 parallel language bindings.
+            </p>
+        </div>
 
-        <div class="bg-white text-[#0a192f] p-8 border-4 border-white transition-all duration-300 hover:-translate-y-1">
-            <h2 class="text-2xl font-bold mb-6 uppercase tracking-wider">Upload Suspicious File</h2>
-            <div class="space-y-6">
-                <div class="border-4 border-dashed border-[#0a192f] p-8 text-center transition-all duration-300 hover:bg-gray-100 cursor-pointer relative">
-                    <input type="file" bind:files class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"/>
-                    <div class="font-bold text-lg">{files && files.length > 0 ? files[0].name : 'Click or drag file here'}</div>
+        <!-- STATS ROW -->
+        <div class="grid grid-cols-3 gap-3 md:gap-6 mb-6">
+            <div class="bg-[#0a0a12] border border-[#1f2937] p-3 md:p-4 flex flex-col items-center justify-center transition-all hover:border-[#22c55e]/50">
+                <div class="text-[#22c55e] text-lg md:text-xl font-bold font-mono">5 NATIVE</div>
+                <div class="text-[#8888aa] text-[9px] md:text-xs tracking-[1px] mt-1">BACKENDS</div>
+            </div>
+            <div class="bg-[#0a0a12] border border-[#1f2937] p-3 md:p-4 flex flex-col items-center justify-center transition-all hover:border-[#818cf8]/50">
+                <div class="text-[#818cf8] text-lg md:text-xl font-bold font-mono">O(1)</div>
+                <div class="text-[#8888aa] text-[9px] md:text-xs tracking-[1px] mt-1">MEMORY PATHWAY</div>
+            </div>
+            <div class="bg-[#0a0a12] border border-[#1f2937] p-3 md:p-4 flex flex-col items-center justify-center transition-all hover:border-[#f59e0b]/50">
+                <div class="text-[#f59e0b] text-lg md:text-xl font-bold font-mono">100%</div>
+                <div class="text-[#8888aa] text-[9px] md:text-xs tracking-[1px] mt-1">METADATA PURGE</div>
+            </div>
+        </div>
+
+        <!-- UPLOAD CARD -->
+        <div class="bg-[#0a0a12] border border-[#1f2937] p-5 shadow-2xl relative">
+            <div class="flex justify-between items-center mb-4">
+                <div class="text-[#8888aa] text-[10px] tracking-[2px]">
+                    PIPELINE STATUS
                 </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 rounded-full {loading ? 'bg-[#f59e0b] animate-pulse' : 'bg-[#22c55e]'}"></div>
+                    <div class="text-[9px] tracking-[1px] {loading ? 'text-[#f59e0b]' : 'text-[#22c55e]'}">
+                        {loading ? 'DISARMING PAYLOAD...' : 'READY'}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sleek Upload Input -->
+            <div class="flex flex-col md:flex-row items-center gap-4 bg-[#12121a] border border-[#22c55e]/30 p-4 relative transition-colors {files && files.length > 0 ? 'border-[#818cf8]/50' : 'hover:border-[#22c55e]/60'}">
+                <div class="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse absolute left-4 hidden md:block"></div>
                 
-                <button 
-                    onclick={handleUpload}
-                    disabled={!files || loading}
-                    class="w-full py-4 font-bold text-xl uppercase tracking-wider transition-all duration-300 transform {files && !loading ? 'bg-[#0a192f] text-white hover:-translate-y-1 hover:bg-blue-900' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}"
-                >
-                    {loading ? 'Disarming on all backends...' : 'Sanitize File'}
-                </button>
+                <div class="flex-1 md:pl-6 w-full text-center md:text-left">
+                    <input type="file" id="file-upload" bind:files class="hidden" />
+                    <label for="file-upload" class="cursor-pointer text-[#aaa297] text-xs md:text-sm font-mono border-b border-dashed border-[#8888aa] pb-1 hover:text-white transition-colors">
+                        {files && files.length > 0 ? files[0].name : 'SELECT SUSPICIOUS FILE [TARGET]'}
+                    </label>
+                </div>
+
+                <div class="flex gap-4 items-center justify-between w-full md:w-auto">
+                    {#if files && files.length > 0}
+                        <div class="text-[#aaa297] text-xs font-mono">
+                            {(files[0].size / 1024).toFixed(1)} KB
+                        </div>
+                    {/if}
+                    <button 
+                        onclick={handleUpload}
+                        disabled={!files || loading}
+                        class="px-6 py-2 text-xs font-bold tracking-widest uppercase transition-all duration-300 border {files && !loading ? 'bg-[#22c55e]/10 text-[#22c55e] border-[#22c55e] hover:bg-[#22c55e]/20 hover:scale-[1.02]' : 'bg-transparent text-[#1f2937] border-[#1f2937] cursor-not-allowed'}"
+                    >
+                        {loading ? 'EXECUTING' : 'INITIATE'}
+                    </button>
+                </div>
             </div>
         </div>
 
         {#if error}
-            <div class="bg-red-600 p-6 text-white border-4 border-red-800 transition-all duration-300 animate-pulse">
-                <h3 class="font-bold text-xl mb-2 uppercase tracking-wider flex items-center">
-                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Error Disarming File
-                </h3>
-                <p class="font-mono text-sm break-all">{error}</p>
+            <div class="bg-[#ef4444]/10 border border-[#ef4444] p-4 flex items-start gap-3">
+                <div class="w-2 h-2 rounded-full bg-[#ef4444] mt-1.5"></div>
+                <div>
+                    <div class="text-[#ef4444] text-[10px] tracking-[2px] mb-1">SYSTEM ERROR</div>
+                    <div class="text-[#ef4444]/80 text-sm font-mono break-all">{error}</div>
+                </div>
             </div>
         {/if}
 
         {#if currentOriginalSrc}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12 items-start">
-                <!-- Original Image View (Fixed side) -->
-                <div class="bg-[#0a192f] p-8 border-4 border-red-500/50 sticky top-8 transition-all duration-300">
-                    <h2 class="text-3xl font-bold mb-6 uppercase tracking-wider flex items-center text-red-400">
-                        <svg class="w-8 h-8 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                        Original (Suspicious)
-                    </h2>
-                    <div class="mb-4 text-red-300 text-lg font-bold">Size: {(currentOriginalSize / 1024).toFixed(2)} KB</div>
-                    <!-- REMOVED opacity-80 and grayscale-20 so it matches the sanitized images perfectly -->
-                    <img src={currentOriginalSrc} alt="Original" class="max-w-full h-auto border-2 border-red-500/30" />
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 items-start">
+                
+                <!-- ORIGINAL IMAGE -->
+                <div class="bg-[#0a0a12] border border-[#1f2937] sticky top-6">
+                    <div class="flex justify-between items-center border-b border-[#1f2937] p-3 md:p-4">
+                        <span class="text-[#8888aa] text-[10px] tracking-[2px]">RAW PAYLOAD [DANGER]</span>
+                        <span class="text-[#ef4444] text-xs font-mono">{(currentOriginalSize / 1024).toFixed(1)} KB</span>
+                    </div>
+                    <div class="p-4 flex justify-center bg-[#12121a] m-3 border border-[#ef4444]/20">
+                        <img src={currentOriginalSrc} alt="Original" class="max-w-full max-h-[500px] object-contain opacity-90" />
+                    </div>
                 </div>
 
-                <!-- Scrollable Sanitized Results View (Vertical scrolling list) -->
-                <div class="space-y-8 h-screen overflow-y-auto pr-4 custom-scrollbar">
+                <!-- RESULTS FEED -->
+                <div class="space-y-4">
                     {#if loading && results.length === 0}
-                        <div class="flex justify-center items-center h-48">
-                            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+                        <div class="bg-[#0a0a12] border border-[#1f2937] p-12 flex flex-col items-center justify-center gap-4">
+                            <div class="w-8 h-8 border-2 border-t-[#818cf8] border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin"></div>
+                            <div class="text-[#818cf8] text-xs font-mono animate-pulse">PROCESSING THROUGH 5 ENGINES...</div>
                         </div>
                     {/if}
                     
                     {#each results as res (res.id)}
-                    <div class="bg-[#0a192f] p-8 border-4 border-green-500/50 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group">
-                        <h2 class="text-2xl font-bold mb-6 uppercase tracking-wider flex items-center text-white">
-                            <svg class="w-6 h-6 mr-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Sanitized by {res.backendName}
-                        </h2>
-                        
-                        <div class="grid grid-cols-2 gap-4 mb-6 text-white">
-                            <div class="border-2 border-green-500/30 p-3 transition-all duration-300">
-                                <div class="text-xs text-green-300 mb-1 uppercase tracking-wider font-bold">Clean Size</div>
-                                <div class="text-xl font-bold text-green-400">{(res.finalSize / 1024).toFixed(2)} KB</div>
-                            </div>
-                            <div class="border-2 border-blue-500/30 p-3 transition-all duration-300">
-                                <div class="text-xs text-blue-300 mb-1 uppercase tracking-wider font-bold">Difference</div>
+                    <div class="bg-[#0a0a12] border border-[#1f2937] transition-all hover:border-[#22c55e]/40 relative">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-[#1f2937] p-3 md:p-4 gap-2">
+                            <span class="text-[#22c55e] text-[10px] tracking-[2px] font-bold flex items-center gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></div>
+                                SANITIZED BY {res.backendName.toUpperCase()}
+                            </span>
+                            
+                            <div class="flex items-center gap-4 text-xs font-mono">
+                                <div class="text-[#aaa297]">
+                                    <span class="text-[#8888aa]">OUT:</span> {(res.finalSize / 1024).toFixed(1)} KB
+                                </div>
                                 {#if res.finalSize <= res.originalSize}
-                                    <div class="text-xl font-bold text-blue-400">-{(((res.originalSize - res.finalSize) / res.originalSize) * 100).toFixed(1)}%</div>
-                                    <div class="text-xs text-blue-300 mt-1">Smaller</div>
+                                    <div class="text-[#22c55e] bg-[#22c55e]/10 px-2 py-0.5 rounded-sm">
+                                        -{(((res.originalSize - res.finalSize) / res.originalSize) * 100).toFixed(1)}%
+                                    </div>
                                 {:else}
-                                    <div class="text-xl font-bold text-yellow-400">+{(((res.finalSize - res.originalSize) / res.originalSize) * 100).toFixed(1)}%</div>
-                                    <div class="text-xs text-yellow-300 mt-1">Re-encode overhead</div>
+                                    <div class="text-[#f59e0b] bg-[#f59e0b]/10 px-2 py-0.5 rounded-sm">
+                                        +{(((res.finalSize - res.originalSize) / res.originalSize) * 100).toFixed(1)}%
+                                    </div>
                                 {/if}
                             </div>
                         </div>
                         
                         {#if res.imageSrc}
-                            <div class="border-2 border-green-500/50 p-2 bg-green-500/5">
-                                <img src={res.imageSrc} alt="Sanitized by {res.backendName}" class="max-w-full h-auto" />
+                            <div class="p-4 flex justify-center bg-[#12121a] m-3 border border-[#22c55e]/20">
+                                <img src={res.imageSrc} alt="Sanitized by {res.backendName}" class="max-w-full max-h-[500px] object-contain" />
                             </div>
                         {/if}
                     </div>
@@ -189,18 +238,9 @@
 </div>
 
 <style>
-    .custom-scrollbar::-webkit-scrollbar {
-        width: 8px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-        background: #0a192f;
-        border-radius: 4px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #1e3a8a;
-        border-radius: 4px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #3b82f6;
+    :global(body) {
+        background-color: #181a1b;
+        color: #e8e6e3;
+        margin: 0;
     }
 </style>
