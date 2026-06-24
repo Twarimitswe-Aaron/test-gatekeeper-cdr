@@ -1,0 +1,55 @@
+{
+    "packages": [
+        {
+            "name": "twarimitswe-aaron/gatekeeper-cdr",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../gatekeeper",
+                "reference": "bfb7d6d673749736384b230037463e27a6e4272d"
+            },
+            "require": {
+                "ext-ffi": "*",
+                "php": ">=8.1"
+            },
+            "type": "library",
+            "extra": {
+                "gatekeeper": {
+                    "description": "This package relies on the native Gatekeeper CDR Rust extension. See https://github.com/Twarimitswe-Aaron/gatekeeper-cdr for installation instructions."
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Gatekeeper\\": "src/"
+                }
+            },
+            "license": [
+                "AGPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Twarimitswe Aaron",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A zero-trust Content Disarm and Reconstruction (CDR) engine for multi-format file sanitisation.",
+            "keywords": [
+                "cdr",
+                "ffi",
+                "gatekeeper",
+                "image",
+                "sanitization",
+                "security",
+                "zero-copy"
+            ],
+            "transport-options": {
+                "relative": true
+            },
+            "install-path": "../twarimitswe-aaron/gatekeeper-cdr"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
