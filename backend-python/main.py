@@ -23,6 +23,8 @@ async def disarm(file: UploadFile = File(...)):
         format_detected = gatekeeper_cdr.sniff_format(raw_buffer)
         clean_buffer = gatekeeper_cdr.disarm(raw_buffer)
         
+        print(f"[Python] Disarmed file | Format: {format_detected} | Original: {len(raw_buffer)} bytes | Clean: {len(clean_buffer)} bytes")
+        
         return {
             "success": True,
             "originalSize": len(raw_buffer),

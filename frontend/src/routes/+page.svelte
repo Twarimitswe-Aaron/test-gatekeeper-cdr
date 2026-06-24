@@ -1,17 +1,17 @@
 <script lang="ts">
     type DisarmResult = {
+        backendName: string;
         format: string;
         originalSize: number;
         finalSize: number;
-        disarmedFileBase64?: string;
+        imageSrc?: string;
     };
 
     let files = $state<FileList | null>(null);
     let selectedBackend = $state('node');
     let loading = $state(false);
-    let result = $state<DisarmResult | null>(null);
+    let results = $state<DisarmResult[]>([]);
     let error = $state<string | null>(null);
-    let imageSrc = $state<string | null>(null);
 
     const backends = [
         { id: 'node', name: 'Node.js (Express)', port: 3001 },
@@ -33,8 +33,6 @@
 
         loading = true;
         error = null;
-        result = null;
-        imageSrc = null;
 
         const formData = new FormData();
         formData.append('file', file);
@@ -51,12 +49,16 @@
                 throw new Error(data.error || `HTTP error ${response.status}`);
             }
 
-            result = data as DisarmResult;
-            
-            // Reconstruct the image src
-            if (result.disarmedFileBase64) {
-                imageSrc = `data:image/${result.format.toLowerCase()};base64,${result.disarmedFileBase64}`;
-            }
+            const newResult: DisarmResult = {
+                backendName: backend.name,
+                format: data.format,
+                originalSize: data.originalSize,
+                finalSize: data.finalSize,
+                imageSrc: data.disarmedFileBase64 ? `data:image/${data.format.toLowerCase()};base64,${data.disarmedFileBase64}` : undefined
+            };
+
+            // Prepend so the newest result is always at the top
+            results = [newResult, ...results];
 
         } catch (err: unknown) {
             if (err instanceof Error) {
@@ -121,40 +123,44 @@
             </div>
         {/if}
 
-        {#if result}
-            <div class="bg-gray-800 rounded-2xl p-6 shadow-xl border border-green-500/30">
-                <h2 class="text-2xl font-semibold mb-6 flex items-center text-green-400">
-                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Sanitization Successful
-                </h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <div class="bg-gray-900 rounded-xl p-4 border border-gray-700">
-                            <div class="text-sm text-gray-400 mb-1">Detected Format</div>
-                            <div class="text-xl font-medium">{result.format}</div>
-                        </div>
-                        <div class="bg-gray-900 rounded-xl p-4 border border-gray-700">
-                            <div class="text-sm text-gray-400 mb-1">Original Size</div>
-                            <div class="text-xl font-medium text-red-400">{(result.originalSize / 1024).toFixed(2)} KB</div>
-                        </div>
-                        <div class="bg-gray-900 rounded-xl p-4 border border-gray-700">
-                            <div class="text-sm text-gray-400 mb-1">Clean Size</div>
-                            <div class="text-xl font-medium text-green-400">{(result.finalSize / 1024).toFixed(2)} KB</div>
-                        </div>
-                        <div class="bg-gray-900 rounded-xl p-4 border border-gray-700">
-                            <div class="text-sm text-gray-400 mb-1">Payload Reduction</div>
-                            <div class="text-xl font-medium text-blue-400">{(((result.originalSize - result.finalSize) / result.originalSize) * 100).toFixed(1)}%</div>
-                        </div>
-                    </div>
+        {#if results.length > 0}
+            <div class="space-y-6">
+                {#each results as res (res.backendName)}
+                <div class="bg-gray-800 rounded-2xl p-6 shadow-xl border border-green-500/30">
+                    <h2 class="text-2xl font-semibold mb-6 flex items-center text-green-400">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Sanitized by {res.backendName}
+                    </h2>
                     
-                    {#if imageSrc}
-                        <div class="bg-gray-900 rounded-xl p-4 border border-gray-700 flex flex-col items-center justify-center min-h-[300px]">
-                            <div class="text-sm text-gray-400 mb-4 self-start">Reconstructed Safe Image</div>
-                            <img src={imageSrc} alt="Sanitized" class="max-w-full max-h-[400px] rounded-lg shadow-lg" />
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <div class="bg-gray-900 rounded-xl p-4 border border-gray-700">
+                                <div class="text-sm text-gray-400 mb-1">Detected Format</div>
+                                <div class="text-xl font-medium">{res.format}</div>
+                            </div>
+                            <div class="bg-gray-900 rounded-xl p-4 border border-gray-700">
+                                <div class="text-sm text-gray-400 mb-1">Original Size</div>
+                                <div class="text-xl font-medium text-red-400">{(res.originalSize / 1024).toFixed(2)} KB</div>
+                            </div>
+                            <div class="bg-gray-900 rounded-xl p-4 border border-gray-700">
+                                <div class="text-sm text-gray-400 mb-1">Clean Size</div>
+                                <div class="text-xl font-medium text-green-400">{(res.finalSize / 1024).toFixed(2)} KB</div>
+                            </div>
+                            <div class="bg-gray-900 rounded-xl p-4 border border-gray-700">
+                                <div class="text-sm text-gray-400 mb-1">Payload Reduction</div>
+                                <div class="text-xl font-medium text-blue-400">{(((res.originalSize - res.finalSize) / res.originalSize) * 100).toFixed(1)}%</div>
+                            </div>
                         </div>
-                    {/if}
+                        
+                        {#if res.imageSrc}
+                            <div class="bg-gray-900 rounded-xl p-4 border border-gray-700 flex flex-col items-center justify-center min-h-[300px]">
+                                <div class="text-sm text-gray-400 mb-4 self-start">Reconstructed Safe Image</div>
+                                <img src={res.imageSrc} alt="Sanitized" class="max-w-full max-h-[400px] rounded-lg shadow-lg" />
+                            </div>
+                        {/if}
+                    </div>
                 </div>
+                {/each}
             </div>
         {/if}
     </div>

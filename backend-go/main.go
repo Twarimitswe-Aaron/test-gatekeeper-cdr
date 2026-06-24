@@ -59,6 +59,8 @@ func disarmHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	log.Printf("[Go] Disarmed file | Format: %s | Original: %d bytes | Clean: %d bytes\n", format, len(rawBuffer), len(cleanBuffer))
+
 	// Prepare JSON response
 	response := map[string]interface{}{
 		"success":            true,

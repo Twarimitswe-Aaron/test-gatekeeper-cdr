@@ -42,6 +42,8 @@ public class BackendJavaApplication {
             // Disarm file
             byte[] cleanBuffer = GatekeeperCdr.disarm(rawBuffer);
             
+            System.out.printf("[Java] Disarmed file | Format: %s | Original: %d bytes | Clean: %d bytes%n", format.toString(), rawBuffer.length, cleanBuffer.length);
+            
             response.put("success", true);
             response.put("originalSize", rawBuffer.length);
             response.put("finalSize", cleanBuffer.length);

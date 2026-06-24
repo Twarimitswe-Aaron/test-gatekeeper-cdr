@@ -32,6 +32,8 @@ if ($_SERVER['REQUEST_URI'] === '/disarm') {
         $format = GatekeeperCdr::sniffFormat($rawBuffer);
         $cleanBuffer = GatekeeperCdr::disarm($rawBuffer);
 
+        error_log(sprintf("[PHP] Disarmed file | Format: %s | Original: %d bytes | Clean: %d bytes", $format, strlen($rawBuffer), strlen($cleanBuffer)));
+
         header('Content-Type: application/json');
         echo json_encode([
             "success" => true,
