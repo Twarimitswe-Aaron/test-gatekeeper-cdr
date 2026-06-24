@@ -1,10 +1,4 @@
 {
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../../gatekeeper"
-        }
-    ],
     "require": {
         "twarimitswe-aaron/gatekeeper-cdr": "@dev"
     }
